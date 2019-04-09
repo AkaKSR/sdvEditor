@@ -1,23 +1,23 @@
 # Stardew Valley Save Editor
 
-author: AkaKSR
-version: 0.1
+author: AkaKSR</br>
+version: 0.1</br>
 
 # Edit Available features
-name = Player Name
-money = Money
-health = Health
-maxHealth = Max Health
-stamina = Stamina
-maxStamina = Max Stamina
-maxItems = Inventory Size (Only used 12, 24, 36)
-farmingLevel = Farming Level
-miningLevel = Mining Level
-combatLevel = Combat Level
-foragingLevel = Foraging Level
-fishingLevel = Fishing Level
+name = Player Name<br/>
+money = Money</br>
+health = Health</br>
+maxHealth = Max Health</br>
+stamina = Stamina</br>
+maxStamina = Max Stamina</br>
+maxItems = Inventory Size <b>(Only used 12, 24, 36)</b></br>
+farmingLevel = Farming Level</br>
+miningLevel = Mining Level</br>
+combatLevel = Combat Level</br>
+foragingLevel = Foraging Level</br>
+fishingLevel = Fishing Level</br>
 
 # Warning
-Do not use SaveGameInfo file.
-This Program is Only PlayerName_uniqueID file.
-ex) AkaKSR_213373454
+Do not use SaveGameInfo file.</br>
+This Program is Only <b>PlayerName_uniqueID</b> file.</br>
+ex) AkaKSR_213373454</br>
