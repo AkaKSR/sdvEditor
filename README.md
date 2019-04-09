@@ -13,6 +13,9 @@ Java(jdk 1.8.0_201)<br />
 # Requirement
 Java(JRE 1.8.0_xxx)<br />
 
+# Usage
+Start sdvEditor.bat
+
 # Edit Available features
 name = Player Name<br />
 money = Money<br />
