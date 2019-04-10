@@ -1,3 +1,18 @@
+/**
+ * FileName : ${sdvEditor}
+ * Comment  : NodeGS
+ * version : 0.1
+ * author  : AkaKSR
+ * date    : ${2019.04.10}
+ */
+
+/*
+ * Changelog
+ * 0.1 = Project Initial
+ * 0.2 = Buffer Exception bug fix / First Release
+ * 0.2.1 = exe file Release
+ */
+
 package sdvEditor;
 
 import java.util.Scanner;
@@ -5,6 +20,11 @@ import java.util.Scanner;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+/**
+ * @author AkaKSR
+ *
+ */
 
 public class NodeGS {
 	
