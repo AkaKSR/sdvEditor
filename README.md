@@ -1,7 +1,7 @@
 # Stardew Valley Save Editor
 
 author: AkaKSR<br />
-version: 0.2 alpha<br />
+version: 0.2.1 alpha<br />
 
 # Important
 <b>This program is still under development.</b><br />
