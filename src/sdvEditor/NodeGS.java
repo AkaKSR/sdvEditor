@@ -1,16 +1,9 @@
 /**
- * FileName : ${sdvEditor}
+ * FileName : ${NodeGS}
  * Comment  : NodeGS
  * version : 0.1
  * author  : AkaKSR
  * date    : ${2019.04.10}
- */
-
-/*
- * Changelog
- * 0.1 = Project Initial
- * 0.2 = Buffer Exception bug fix / First Release
- * 0.2.1 = exe file Release
  */
 
 package sdvEditor;

@@ -1,7 +1,7 @@
 /**
  * FileName : ${sdvEditor}
  * Comment  : Stardew Valley Save Editor
- * version : 0.2.1
+ * version : 0.3
  * author  : AkaKSR
  * date    : ${2019.04.10}
  */
@@ -11,6 +11,7 @@
  * 0.1 = Project Initial
  * 0.2 = Buffer Exception bug fix / First Release
  * 0.2.1 = exe file Release
+ * 0.3 = New function add(farmName, favoriteThing) / Support SaveGameInfo file / Android savefile bug fix
  */
 
 package sdvEditor;
@@ -77,7 +78,7 @@ public class Main {
 		String time1 = format.format(time);
 		
 		
-		// Save 백업
+		/*// Save 백업
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
 		DOMSource source = new DOMSource(document);
@@ -93,13 +94,14 @@ public class Main {
 		
 		System.out.println(" -- File Backup Start -- ");
 		
-		FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + "\\bak\\" + savefile + "_bak_" + time1, true);
+		FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + savefile + "_bak_" + time1, true);
 		OutputStreamWriter osw = new OutputStreamWriter(output,"UTF-8");
 		BufferedWriter outs = new BufferedWriter(osw);
 		outs.write(xmlout);
 		outs.close();
 		
 		System.out.println(" -- File Backup End -- ");
+		*/
 		
 		// 파일 검증
 		if (document.getDocumentElement().getNodeName() == "SaveGame") {
@@ -143,7 +145,7 @@ public class Main {
 				System.out.println();
 				if (menu == 1) {
 					System.out.println("Please enter the function you want to change.");
-					System.out.println("(name, money, health, maxHealth, stamina, maxStamina, MaxItems, farmingLevel, miningLevel, combatLevel, foragingLevel, fishingLevel)");
+					System.out.println("(name, farmName, favoriteThing, money, health, maxHealth, stamina, maxStamina, MaxItems, farmingLevel, miningLevel, combatLevel, foragingLevel, fishingLevel)");
 					System.out.print("command: ");
 					String func = sc.next();
 					System.out.print("Edit " + func + " : ");
@@ -151,9 +153,29 @@ public class Main {
 					System.out.println();
 					System.out.println("before" + func + " : " + ntv.nodegv(func, eElement));
 					System.out.println("after" + func + " : " + ntv.nodesv(func, eElement, nsv));
-				} else if (menu == 2) {
-					System.out.println("---------Status---------");
+					InfoSave is = new InfoSave();
+					is.infoSave(func, nsv);
+					System.out.println("---------Main Save Status---------");
 					System.out.println("name : " + ntv.nodegv("name", eElement));
+					System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
+					System.out.println("favoriteThing : " + ntv.nodegv("favoriteThing", eElement));
+					System.out.println("money : " + ntv.nodegv("money", eElement));
+					System.out.println("health : " + ntv.nodegv("health", eElement));
+					System.out.println("maxHealth : " + ntv.nodegv("maxHealth", eElement));
+					System.out.println("stamina : " + ntv.nodegv("stamina", eElement));
+					System.out.println("maxStamina : " + ntv.nodegv("maxStamina", eElement));
+					System.out.println("maxItems : " + ntv.nodegv("maxItems", eElement));
+					System.out.println("farmingLevel : " + ntv.nodegv("farmingLevel", eElement));
+					System.out.println("miningLevel : " + ntv.nodegv("miningLevel", eElement));
+					System.out.println("combatLevel : " + ntv.nodegv("combatLevel", eElement));
+					System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
+					System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
+					System.out.println("------------------------");
+				} else if (menu == 2) {
+					System.out.println("---------Main Save Status---------");
+					System.out.println("name : " + ntv.nodegv("name", eElement));
+					System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
+					System.out.println("favoriteThing : " + ntv.nodegv("favoriteThing", eElement));
 					System.out.println("money : " + ntv.nodegv("money", eElement));
 					System.out.println("health : " + ntv.nodegv("health", eElement));
 					System.out.println("maxHealth : " + ntv.nodegv("maxHealth", eElement));

@@ -5,16 +5,18 @@ import java.awt.EventQueue;
 import java.awt.FileDialog;
 import java.awt.TextField;
 
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.*;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.awt.event.ActionEvent;
@@ -43,6 +45,9 @@ public class Main extends JFrame {
 	private JTextField txtCombat;
 	private JTextField txtForaging;
 	private JTextField txtFish;
+	private JMenuBar menuBar;
+	private JMenuItem mntmAbout;
+	private JMenuItem mntmHelp;
 
 	/**
 	 * Launch the application.
@@ -67,6 +72,61 @@ public class Main extends JFrame {
 		setTitle("Stardew Valley Save Editor - sdvEditor GUI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 543);
+		
+		JFileChooser chooser;
+		chooser = new JFileChooser();
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmOpen = new JMenuItem("Open");
+		mnFile.add(mntmOpen);
+		
+		mnFile.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Stardew Valley Save File", "*.*");
+				chooser.setFileFilter(filter);
+				
+				int ret = chooser.showOpenDialog(null);
+				if (ret != JFileChooser.APPROVE_OPTION) {
+					
+					JOptionPane.showMessageDialog(null, "File not Selected.", "Warning", JOptionPane.WARNING_MESSAGE);
+					
+					txtName.setText("성공");
+					
+					return;
+					
+				}
+				
+				String filePath = chooser.getSelectedFile().getPath();
+				txtName.setText("케릭터 이름");
+				
+			}
+		});
+		
+		
+		JMenuItem mntmSave = new JMenuItem("Save");
+		mnFile.add(mntmSave);
+		
+		JMenu mnBackup = new JMenu("Backup");
+		menuBar.add(mnBackup);
+		
+		JMenuItem mntmBackup = new JMenuItem("Backup");
+		mnBackup.add(mntmBackup);
+		
+		JMenu mnHelp = new JMenu("Help");
+		menuBar.add(mnHelp);
+		
+		mntmAbout = new JMenuItem("About");
+		mnHelp.add(mntmAbout);
+		
+		mntmHelp = new JMenuItem("Help");
+		mnHelp.add(mntmHelp);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -78,8 +138,7 @@ public class Main extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				
-				txtName.setText("케릭터 이름");
+				//txtName.setText("케릭터 이름");
 				
 			}
 		});
@@ -101,6 +160,13 @@ public class Main extends JFrame {
 		contentPane.add(btnSave);
 		
 		btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+			}
+		});
 		btnExit.setBounds(609, 12, 105, 27);
 		contentPane.add(btnExit);
 		
