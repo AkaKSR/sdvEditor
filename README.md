@@ -1,7 +1,7 @@
 # Stardew Valley Save Editor
 
 author: AkaKSR<br />
-version: 0.3<br />
+version: 0.3.1<br />
 
 # Changelog
 <b>0.1</b><br/>
@@ -48,5 +48,5 @@ foragingLevel = Foraging Level<br />
 fishingLevel = Fishing Level<br />
 
 # Warning
-This Program is Only <b>PlayerName_uniqueID</b> file.<br />
+This Program is Only read <b>PlayerName_uniqueID</b> file.<br />
 ex) AkaKSR_213373454<br />
