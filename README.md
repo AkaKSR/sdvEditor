@@ -15,6 +15,8 @@ exe File release<br/><br/>
 New function add(farmName, favoriteThing)<br/>
 Support SaveGameInfo file<br/>
 Android savefile bug fix<br/><br/>
+<b>0.3.1</b><br/>
+Add Pause class (can not halted program)<br/><br/>
 
 # Important
 <b>This program is still under development.</b><br />
