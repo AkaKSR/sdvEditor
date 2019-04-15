@@ -21,6 +21,7 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,6 +66,9 @@ public class Main {
 		System.out.println();
 		//sc.close();
 		
+		// Pause 초기화
+		Pause pause = new Pause();
+		
 		// XML 문서 파싱
 		//System.out.println(" -- File Load Start -- ");
 		Document document = documentBuilder.parse(savefile);
@@ -76,7 +80,6 @@ public class Main {
 		Date time = new Date();
 		
 		String time1 = format.format(time);
-		
 		
 		/*// Save 백업
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -171,6 +174,9 @@ public class Main {
 					System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
 					System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
 					System.out.println("------------------------");
+					System.out.println();
+					System.out.println("Press Enter key...");
+					pause.pause();
 				} else if (menu == 2) {
 					System.out.println("---------Main Save Status---------");
 					System.out.println("name : " + ntv.nodegv("name", eElement));
@@ -188,12 +194,20 @@ public class Main {
 					System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
 					System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
 					System.out.println("------------------------");
+					System.out.println();
+					System.out.println("Press Enter key...");
+					pause.pause();
 					return;
+					
+					
 				} else if (menu == 3) {
 					return;
 				} else {
 					System.out.println("Please try again.");
 					System.out.println("Please Restart Program.");
+					System.out.println();
+					System.out.println("Press Enter key...");
+					pause.pause();
 					return;
 				}
 				
