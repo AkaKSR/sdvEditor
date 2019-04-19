@@ -27,21 +27,21 @@ public class StringMain {
 		System.out.println(" (6) - Fisher		(7) - Trapper");
 		System.out.println(" (8) - Angler		(9) - Pirate");
 		System.out.println(" (10) - Mariner		(11) - Luremaster");
-		System.out.println("");
+		System.out.println();
 		System.out.println(" [Foraging]");
 		System.out.println(" (12) - Forester	(13) - Forager");
 		System.out.println(" (14) - Lumberjack	(15) - Tapper");
 		System.out.println(" (16) - Botanist	(17) - Tracker");
-		System.out.println("");
+		System.out.println();
 		System.out.println(" [Mining]");
 		System.out.println(" (18) - Miner		(19) - Geologist");
 		System.out.println(" (20) - Blacksmith	(21) - Prospector");
 		System.out.println(" (22) - Excavator	(23) - Gemologist");
-		System.out.println("");
+		System.out.println();
 		System.out.println(" [Combat]");
 		System.out.println(" (24) - Fighter 	(25) - Scout");
-		System.out.println(" (26) - Brute		(27) - Defender       ");
-		System.out.println(" (28) - Acrobat	(29) - Desperado      ");
+		System.out.println(" (26) - Brute		(27) - Defender");
+		System.out.println(" (28) - Acrobat		(29) - Desperado");
 		
 	}
 	
@@ -68,6 +68,12 @@ public class StringMain {
 	public static void statEdit() {
 		System.out.println("Please enter the function you want to change.");
 		System.out.println("(name, skill, farmName, favoriteThing, money, health, maxHealth, stamina, maxStamina, MaxItems, farmingLevel, miningLevel, combatLevel, foragingLevel, fishingLevel)");
+		System.out.print("command: ");
+	}
+	
+	public static void statEdit1() {
+		System.out.println("Please enter the function you want to change.");
+		System.out.println("(name, farmName, favoriteThing, money, health, maxHealth, stamina, maxStamina, MaxItems, farmingLevel, miningLevel, combatLevel, foragingLevel, fishingLevel)");
 		System.out.print("command: ");
 	}
 	

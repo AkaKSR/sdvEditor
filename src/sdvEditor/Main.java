@@ -1,7 +1,7 @@
 /**
  * FileName : ${sdvEditor}
  * Comment  : Stardew Valley Save Editor
- * version : 0.4
+ * version : 0.4.1
  * author  : AkaKSR
  * date    : ${2019.04.19}
  */
@@ -13,6 +13,7 @@
  * 0.2.1 = exe file Release
  * 0.3 = New function add(farmName, favoriteThing) / Support SaveGameInfo file / Android savefile bug fix
  * 0.4 = New function add(skill = professions)
+ * 0.4.1 = skill function bug fix
  */
 
 package sdvEditor;
@@ -144,33 +145,66 @@ public class Main {
 							
 							string.skillMenu();
 							
-							// int 노드 추가
-							Element professions = document.createElement("int");
-							System.out.print("Command: ");
-							skillInt = sc.next();
-							professions.appendChild(document.createTextNode(skillInt));
-							nodeDel.appendChild(professions);
+							String exit = "exit";
+							
+							while (true) {
+								Element professions = document.createElement("int");
+								System.out.println();
+								System.out.println("Press ENTER without any input.");
+								System.out.print("Command: ");
+								skillInt = sc.next();
+								professions.appendChild(document.createTextNode(skillInt));
+								nodeDel.appendChild(professions);
+								System.out.print("More edit skill? (Y/N): ");
+								String answer = sc.next();
+								if (answer.equals("y")) {
+									continue;
+								} else if (answer.equals("Y")) {
+									continue;
+								} else if (answer.equals("n")) {
+									break;
+								} else if (answer.equals("N")) {
+									break;
+								} else break;
+							}
 							
 						} else if (agree == "y") {
-							
-							
 							
 							// 현재 스킬 초기화
 							for (int i = 0; i <= sValueChild.getLength(); ++i) {
 								ntv.nodedel(document);
 								
-							}
+							} 
 							
 							string.skillMenu();
 							
-							// int 노드 추가
-							Element professions = document.createElement("int");
-							System.out.print("Command: ");
-							skillInt = sc.next();
-							professions.appendChild(document.createTextNode(skillInt));
-							nodeDel.appendChild(professions);
+							String exit = "exit";
+							
+							while (true) {
+								Element professions = document.createElement("int");
+								System.out.println();
+								System.out.println("Press ENTER without any input.");
+								System.out.print("Command: ");
+								skillInt = sc.next();
+								professions.appendChild(document.createTextNode(skillInt));
+								nodeDel.appendChild(professions);
+								System.out.print("More edit skill? (Y/N): ");
+								String answer = sc.next();
+								if (answer.equals("y")) {
+									continue;
+								} else if (answer.equals("Y")) {
+									continue;
+								} else if (answer.equals("n")) {
+									break;
+								} else if (answer.equals("N")) {
+									break;
+								} else break;
+							}
 							
 						} else {
+							string.statEdit1();
+							func = sc.next();
+							function.cls();
 							System.out.print("Edit " + func + " : ");
 							String nsv = sc.next();
 							System.out.println();
@@ -201,35 +235,6 @@ public class Main {
 						
 						
 					}
-					
-					/*
-					System.out.print("Edit " + func + " : ");
-					String nsv = sc.next();
-					System.out.println();
-					System.out.println("before" + func + " : " + ntv.nodegv(func, eElement));
-					System.out.println("after" + func + " : " + ntv.nodesv(func, eElement, nsv));
-					InfoSave is = new InfoSave();
-					is.infoSave(func, nsv);
-					System.out.println("---------Main Save Status---------");
-					System.out.println("name : " + ntv.nodegv("name", eElement));
-					System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
-					System.out.println("favoriteThing : " + ntv.nodegv("favoriteThing", eElement));
-					System.out.println("money : " + ntv.nodegv("money", eElement));
-					System.out.println("health : " + ntv.nodegv("health", eElement));
-					System.out.println("maxHealth : " + ntv.nodegv("maxHealth", eElement));
-					System.out.println("stamina : " + ntv.nodegv("stamina", eElement));
-					System.out.println("maxStamina : " + ntv.nodegv("maxStamina", eElement));
-					System.out.println("maxItems : " + ntv.nodegv("maxItems", eElement));
-					System.out.println("farmingLevel : " + ntv.nodegv("farmingLevel", eElement));
-					System.out.println("miningLevel : " + ntv.nodegv("miningLevel", eElement));
-					System.out.println("combatLevel : " + ntv.nodegv("combatLevel", eElement));
-					System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
-					System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
-					System.out.println("------------------------");
-					System.out.println();
-					System.out.println("Press Enter key...");
-					function.pause();
-					*/
 					
 				} else if (menuint == 2) {
 					System.out.println("---------Main Save Status---------");
