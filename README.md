@@ -1,7 +1,7 @@
 # Stardew Valley Save Editor
 
 author: AkaKSR<br />
-version: 0.3.1<br />
+version: 0.4<br />
 
 # Changelog
 <b>0.1</b><br/>
@@ -17,6 +17,9 @@ Support SaveGameInfo file<br/>
 Android savefile bug fix<br/><br/>
 <b>0.3.1</b><br/>
 Add Pause class (can not halted program)<br/><br/>
+<b>0.4</b><br/>
+Add new function(skill)
+(Available Skill Edit)
 
 # Important
 <b>This program is still under development.</b><br />
@@ -33,6 +36,7 @@ Start sdvEditor.exe
 
 # Edit Available features
 name = Player Name<br />
+skill = professions<br/>
 farmName = Farm Name<br />
 favoriteThing = Favorite<br />
 money = Money<br />
