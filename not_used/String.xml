@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdvEditor>
+	<string>
+		<!--Program Name-->
+		<name>Stardew Valley Save Editor - sdvEditor</name>
+		<!--Skill-->
+		<!--Farming Skill-->
+		<Farming>농사</Farming>
+		<rancher>목장주</rancher>
+		<tiller>인간경운기</tiller>
+		<coopmaster>우리의 달인</coopmaster>
+		<shepard>양치기소년</shepard>
+		<artisan>장인</artisan>
+		<agricultist>농업학도</agricultist>
+		<!--Fishing Skill-->
+		<Fishing>낚시</Fishing>
+		<fisher>낚시꾼</fisher>
+		<trapper></trapper>
+		<angler></angler>
+		<pirate></pirate>
+		<mariner></mariner>
+		<luremaster></luremaster>
+		<!--Foraging Skill-->
+		<Foraging></Foraging>
+		<forester></forester>
+		<forager></forager>
+		<lumberjack></lumberjack>
+		<tapper></tapper>
+		<botanist></botanist>
+		<tracker></tracker>
+		<!--Mining Skill-->
+		<Mining></Mining>
+		<miner></miner>
+		<geologist></geologist>
+		<blacksmith></blacksmith>
+		<prospector></prospector>
+		<excavator></excavator>
+		<gemologist></gemologist>
+		<!--Combat Skill-->
+		<Combat></Combat>
+		<fighter></fighter>
+		<scout></scout>
+		<brute></brute>
+		<defender></defender>
+		<acrobat></acrobat>
+		<desperado></desperado>
+		<!--Menu-->
+		<mainmenu>----------Menu----------</mainmenu>
+		<mainmenu_1></mainmenu_1>
+		<mainmenu_2></mainmenu_2>
+		<mainmenu_3></mainmenu_3>
+		<mainmenu_a></mainmenu_a>
+		<menunum></menunum>
+	</string>
+
+</sdvEditor>

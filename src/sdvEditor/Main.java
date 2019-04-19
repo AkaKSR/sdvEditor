@@ -1,9 +1,9 @@
 /**
  * FileName : ${sdvEditor}
  * Comment  : Stardew Valley Save Editor
- * version : 0.3
+ * version : 0.4
  * author  : AkaKSR
- * date    : ${2019.04.10}
+ * date    : ${2019.04.19}
  */
 
 /*
@@ -12,6 +12,7 @@
  * 0.2 = Buffer Exception bug fix / First Release
  * 0.2.1 = exe file Release
  * 0.3 = New function add(farmName, favoriteThing) / Support SaveGameInfo file / Android savefile bug fix
+ * 0.4 = New function add(skill = professions)
  */
 
 package sdvEditor;
@@ -43,6 +44,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import func.NodeGS;
+import stringRes.StringMain;
+import func.Function;
+
 /**
  * @author AkaKSR
  *
@@ -51,79 +56,43 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException, ParserConfigurationException, SAXException, IOException, TransformerException{
 		
+		// etc 초기화
+		Function function = new Function();
+		StringMain string = new StringMain();
+		
 		//System.out.println(" -- sdvEditor Start -- ");
-		System.out.println("Stardew Valley Save Editor - sdvEditor");
+		string.titleName();
 		
 		// DOM Factory 초기화
-		//System.out.println(" -- DOM Factory init -- ");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder = factory.newDocumentBuilder();
 
 		// Scanner 초기화
-		System.out.print("Please type your savefile name : ");
+		string.inputSave();
 		Scanner sc = new Scanner(System.in);
 		String savefile = sc.next();
 		System.out.println();
 		//sc.close();
 		
-		// Pause 초기화
-		Pause pause = new Pause();
-		
 		// XML 문서 파싱
-		//System.out.println(" -- File Load Start -- ");
 		Document document = documentBuilder.parse(savefile);
 		document.setXmlStandalone(true);
-		
-		// 현재 시간 구하기
-		SimpleDateFormat format = new SimpleDateFormat("yyMMdd_HHmmss");
-		
-		Date time = new Date();
-		
-		String time1 = format.format(time);
-		
-		/*// Save 백업
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		
-		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(out);
-		
-		TransformerFactory transFactory = TransformerFactory.newInstance();
-		Transformer transformer = transFactory.newTransformer();
-		
-		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-		transformer.transform(source, result);
-		
-		String xmlout = new String(out.toByteArray(), StandardCharsets.UTF_8);
-		
-		System.out.println(" -- File Backup Start -- ");
-		
-		FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + savefile + "_bak_" + time1, true);
-		OutputStreamWriter osw = new OutputStreamWriter(output,"UTF-8");
-		BufferedWriter outs = new BufferedWriter(osw);
-		outs.write(xmlout);
-		outs.close();
-		
-		System.out.println(" -- File Backup End -- ");
-		*/
 		
 		// 파일 검증
 		if (document.getDocumentElement().getNodeName() == "SaveGame") {
 			System.out.println("Save Type : Main");
 		} else if (document.getDocumentElement().getNodeName() == "Farmer") {
 			System.out.println("Save Type : Info");
-			System.out.println("-----------------------");
-			System.out.println("This Program is main save only");
-			System.out.println("Main save file Exam : User_uniqueID");
-			System.out.println("Please check file");
+			string.infoSave();
 			return;
 			
 		} else {
-			System.out.println("This savefile is not Stardew Valley savefile.");
-			System.out.println("Please check file");
+			string.errorFile();
 			return;
 		}
 		
 		NodeList nList = document.getElementsByTagName("player");
+		
 		System.out.println("------------------------");
 		
 		for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -132,25 +101,108 @@ public class Main {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				
 				Element eElement = (Element) nNode;
-				
 				NodeGS ntv = new NodeGS();
 				
+				
+				NodeList slList1 = eElement.getElementsByTagName("professions").item(0).getChildNodes();
+				Node sValue1 = (Node) slList1.item(0);
+				Element nodeDel = (Element) sValue1.getParentNode();
+				NodeList sValueChild = nodeDel.getChildNodes();
+				
+				//System.out.println("NodeName: " + sValue1.getParentNode());
+				//System.out.println("NameParent: " + sValue1.getParentNode().getNodeName());
+				//System.out.println("sValue1: " + sValue1);
+				
+				// 화면을 지운뒤 menu.mainMenu() 호출
 				System.out.println();
-				System.out.println("----------Menu----------");
-				System.out.println("1. Edit Status");
-				System.out.println("2. Check Status");
-				System.out.println("3. Exit");
-				System.out.println("------------------------");
+				function.cls();
+				string.mainMenu();
+				int menuint = sc.nextInt();
 				System.out.println();
-				System.out.println("Please enter the Menu Number");
-				System.out.print("Menu Num : ");
-				int menu = sc.nextInt();
-				System.out.println();
-				if (menu == 1) {
-					System.out.println("Please enter the function you want to change.");
-					System.out.println("(name, farmName, favoriteThing, money, health, maxHealth, stamina, maxStamina, MaxItems, farmingLevel, miningLevel, combatLevel, foragingLevel, fishingLevel)");
-					System.out.print("command: ");
+				function.cls();
+
+				if (menuint == 1) {
+					string.statEdit();
 					String func = sc.next();
+					function.cls();
+					
+					// 스킬에딧 추가
+					if ("skill".equals(func)) {
+						String skillInt;
+						System.out.println();
+						string.skillEdit();
+						String agree = sc.next();
+						function.cls();
+						
+						if ("Y".equals(agree)) {
+							
+							// 현재 스킬 초기화
+							for (int i = 0; i <= sValueChild.getLength(); ++i) {
+								ntv.nodedel(document);
+								
+							} 
+							
+							string.skillMenu();
+							
+							// int 노드 추가
+							Element professions = document.createElement("int");
+							System.out.print("Command: ");
+							skillInt = sc.next();
+							professions.appendChild(document.createTextNode(skillInt));
+							nodeDel.appendChild(professions);
+							
+						} else if (agree == "y") {
+							
+							
+							
+							// 현재 스킬 초기화
+							for (int i = 0; i <= sValueChild.getLength(); ++i) {
+								ntv.nodedel(document);
+								
+							}
+							
+							string.skillMenu();
+							
+							// int 노드 추가
+							Element professions = document.createElement("int");
+							System.out.print("Command: ");
+							skillInt = sc.next();
+							professions.appendChild(document.createTextNode(skillInt));
+							nodeDel.appendChild(professions);
+							
+						} else {
+							System.out.print("Edit " + func + " : ");
+							String nsv = sc.next();
+							System.out.println();
+							System.out.println("before" + func + " : " + ntv.nodegv(func, eElement));
+							System.out.println("after" + func + " : " + ntv.nodesv(func, eElement, nsv));
+							InfoSave is = new InfoSave();
+							is.infoSave(func, nsv);
+							System.out.println("---------Main Save Status---------");
+							System.out.println("name : " + ntv.nodegv("name", eElement));
+							System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
+							System.out.println("favoriteThing : " + ntv.nodegv("favoriteThing", eElement));
+							System.out.println("money : " + ntv.nodegv("money", eElement));
+							System.out.println("health : " + ntv.nodegv("health", eElement));
+							System.out.println("maxHealth : " + ntv.nodegv("maxHealth", eElement));
+							System.out.println("stamina : " + ntv.nodegv("stamina", eElement));
+							System.out.println("maxStamina : " + ntv.nodegv("maxStamina", eElement));
+							System.out.println("maxItems : " + ntv.nodegv("maxItems", eElement));
+							System.out.println("farmingLevel : " + ntv.nodegv("farmingLevel", eElement));
+							System.out.println("miningLevel : " + ntv.nodegv("miningLevel", eElement));
+							System.out.println("combatLevel : " + ntv.nodegv("combatLevel", eElement));
+							System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
+							System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
+							System.out.println("------------------------");
+							System.out.println();
+							System.out.println("Press Enter key...");
+							function.pause();
+						}
+						
+						
+					}
+					
+					/*
 					System.out.print("Edit " + func + " : ");
 					String nsv = sc.next();
 					System.out.println();
@@ -176,8 +228,10 @@ public class Main {
 					System.out.println("------------------------");
 					System.out.println();
 					System.out.println("Press Enter key...");
-					pause.pause();
-				} else if (menu == 2) {
+					function.pause();
+					*/
+					
+				} else if (menuint == 2) {
 					System.out.println("---------Main Save Status---------");
 					System.out.println("name : " + ntv.nodegv("name", eElement));
 					System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
@@ -196,18 +250,18 @@ public class Main {
 					System.out.println("------------------------");
 					System.out.println();
 					System.out.println("Press Enter key...");
-					pause.pause();
+					function.pause();
 					return;
 					
 					
-				} else if (menu == 3) {
+				} else if (menuint == 3) {
 					return;
 				} else {
 					System.out.println("Please try again.");
 					System.out.println("Please Restart Program.");
 					System.out.println();
 					System.out.println("Press Enter key...");
-					pause.pause();
+					function.pause();
 					return;
 				}
 				
@@ -234,7 +288,7 @@ public class Main {
 		
 		System.out.println(" -- File Write Start -- ");
 		
-		FileOutputStream output1 = new FileOutputStream(savefile + "_modified_" + time1, true);
+		FileOutputStream output1 = new FileOutputStream(savefile + "_modified", true);
 		OutputStreamWriter osw1 = new OutputStreamWriter(output1,"UTF-8");
 		BufferedWriter out2 = new BufferedWriter(osw1);
 		out2.write(xmlout1);

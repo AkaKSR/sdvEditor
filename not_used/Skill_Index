@@ -1,0 +1,46 @@
+케릭터 스킬은 다음의 노드에서 이루어진다.
+<professions>
+<int>
+스킬코드명
+<int>
+</professions>
+
+농사
+0 - Rancher		목장주
+1 - Tiller		인간경운기
+2 - Coopmaster	우리의 달인
+3 - Shepard		양치기소년
+4 - Artisan		장인
+5 - Agricultist	농업학도
+
+낚시
+6 - Fisher		낚시꾼
+7 - Trapper		함정 전문가
+8 - Angler		아귀
+9 - Pirate		해적
+10 - Mariner		선원
+11 - Luremaster	미끼 장인
+
+채집
+12 - Forester		숲지기
+13 - Forager		채집가
+14 - Lumberjack	벌목꾼
+15 - Tapper		수액 채취기
+16 - Botanist		식물학자
+17 - Tracker		추적자
+
+채광
+18 - Miner		광부
+19 - Geologist	지질학자
+20 - Blacksmith	대장장이
+21 - Prospector	탐사자
+22 - Excavator	발굴자
+23 - Gemologist	보석 감정사
+
+전투
+24 - Fighter		전사
+25 - Scout		정찰자
+26 - Brute		곡예사
+27 - Defender		짐승
+28 - Acrobat		수비수
+29 - Desperado	무법자

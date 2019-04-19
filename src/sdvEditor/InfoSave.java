@@ -34,6 +34,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import func.NodeGS;
+
 /**
  * @author AkaKSR
  *
@@ -58,12 +60,14 @@ public class InfoSave {
 		Document document = documentBuilder.parse(infofile);
 		document.setXmlStandalone(true);
 		
+		/*
 		// 현재 시간 구하기
 		SimpleDateFormat format = new SimpleDateFormat("yyMMdd_HHmmss");
 		
 		Date time = new Date();
 		
 		String time1 = format.format(time);
+		*/
 		
 		NodeList nList = document.getElementsByTagName("Farmer");
 		System.out.println("------------------------");
@@ -115,7 +119,7 @@ public class InfoSave {
 		
 		System.out.println(" -- File Write Start -- ");
 		
-		FileOutputStream output1 = new FileOutputStream(infofile + "_modified_" + time1, true);
+		FileOutputStream output1 = new FileOutputStream(infofile + "_modified", true);
 		OutputStreamWriter osw1 = new OutputStreamWriter(output1,"UTF-8");
 		BufferedWriter out2 = new BufferedWriter(osw1);
 		out2.write(xmlout1);
