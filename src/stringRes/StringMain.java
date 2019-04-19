@@ -67,7 +67,7 @@ public class StringMain {
 	
 	public static void statEdit() {
 		System.out.println("Please enter the function you want to change.");
-		System.out.println("(name, farmName, favoriteThing, money, health, maxHealth, stamina, maxStamina, MaxItems, farmingLevel, miningLevel, combatLevel, foragingLevel, fishingLevel)");
+		System.out.println("(name, skill, farmName, favoriteThing, money, health, maxHealth, stamina, maxStamina, MaxItems, farmingLevel, miningLevel, combatLevel, foragingLevel, fishingLevel)");
 		System.out.print("command: ");
 	}
 	
