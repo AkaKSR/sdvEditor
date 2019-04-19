@@ -150,7 +150,6 @@ public class Main {
 							while (true) {
 								Element professions = document.createElement("int");
 								System.out.println();
-								System.out.println("Press ENTER without any input.");
 								System.out.print("Command: ");
 								skillInt = sc.next();
 								professions.appendChild(document.createTextNode(skillInt));
