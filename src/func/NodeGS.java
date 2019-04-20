@@ -56,5 +56,11 @@ public class NodeGS {
 		lastNode.removeChild(lastValue);
 		
 	}
+	
+	public static void nodenull(Node sValue1) {
+		Element nodeDel = (Element) sValue1.getParentNode();
+		NodeList sValueChild = nodeDel.getChildNodes();
+		
+	}
 
 }

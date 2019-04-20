@@ -105,10 +105,10 @@ public class Main {
 				NodeGS ntv = new NodeGS();
 				
 				
-				NodeList slList1 = eElement.getElementsByTagName("professions").item(0).getChildNodes();
-				Node sValue1 = (Node) slList1.item(0);
-				Element nodeDel = (Element) sValue1.getParentNode();
-				NodeList sValueChild = nodeDel.getChildNodes();
+//				NodeList slList1 = eElement.getElementsByTagName("professions").item(0).getChildNodes();
+//				Node sValue1 = (Node) slList1.item(0);
+//				Element nodeDel = (Element) sValue1.getParentNode();
+//				NodeList sValueChild = nodeDel.getChildNodes();
 				
 				//System.out.println("NodeName: " + sValue1.getParentNode());
 				//System.out.println("NameParent: " + sValue1.getParentNode().getNodeName());
@@ -129,6 +129,11 @@ public class Main {
 					
 					// 스킬에딧 추가
 					if ("skill".equals(func)) {
+						NodeList slList1 = eElement.getElementsByTagName("professions").item(0).getChildNodes();
+						Node sValue1 = (Node) slList1.item(0);
+						Element nodeDel = (Element) sValue1.getParentNode();
+						NodeList sValueChild = nodeDel.getChildNodes();
+						
 						String skillInt;
 						System.out.println();
 						string.skillEdit();
