@@ -57,10 +57,4 @@ public class NodeGS {
 		
 	}
 	
-	public static void nodenull(Node sValue1) {
-		Element nodeDel = (Element) sValue1.getParentNode();
-		NodeList sValueChild = nodeDel.getChildNodes();
-		
-	}
-
 }
