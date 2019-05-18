@@ -30,7 +30,7 @@ public class SkillEdit {
 			Node a = getInt.item(i);
 			getParent.removeChild(a.getParentNode());	
 		}
-		
+		 
 		return document;
 		
 	}

@@ -10,6 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.*;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -19,6 +23,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 
@@ -51,6 +56,9 @@ public class Main extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws ParserConfigurationException 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -138,7 +146,12 @@ public class Main extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				//txtName.setText("케릭터 이름");
+				/*
+				 * 파일오픈 부분
+				 * String filePath에 파일 경로 정보가 담김.
+				 */
+				FileOpen fileOpen = new FileOpen();
+				String loadPath = fileOpen.filePath;
 				
 			}
 		});
@@ -156,6 +169,15 @@ public class Main extends JFrame {
 		txtName.setColumns(10);
 		
 		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				// 세이브 버튼 이벤트 부분
+				FileSave fileSave = new FileSave();
+				String savePath = fileSave.filePath;
+				
+			}
+		});
 		btnSave.setBounds(133, 12, 105, 27);
 		contentPane.add(btnSave);
 		
