@@ -1,5 +1,6 @@
 package sdvEditorGUI;
 
+import java.awt.Font;
 import java.io.File;
 import javax.swing.JFileChooser;
 
@@ -19,6 +20,7 @@ public class FileOpen {
 	 * Initialize the contents of the frame.
 	 */
 	public String initialize() {
+		fileChooser.setFont(new Font("Cousine", Font.BOLD, 12));
 		String selectFilePath = "";
 		int result = fileChooser.showOpenDialog(fileChooser);
 		if (result == JFileChooser.APPROVE_OPTION) {

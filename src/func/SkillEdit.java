@@ -1,3 +1,11 @@
+/**
+ * @FileName : SkillEdit.java
+ * @Comment  : sdvEditor SkillEdit method
+ * @version : 0.2
+ * @author  : AkaKSR
+ * @date    : ${2019.06.12}
+ */
+
 package func;
 
 import java.io.IOException;
@@ -20,25 +28,11 @@ public class SkillEdit {
 		
 	}
 	
-	public static Document skillInit(Document document) {
-		
-		Element getParent = (Element) document.getElementsByTagName("professions").item(0).getChildNodes();
-		NodeList getInt = document.getElementsByTagName("professions").item(0).getChildNodes().item(0).getChildNodes();
-		System.out.println("[Init] getParent: " + getParent);
-		System.out.println("[Init] getInt: " + getInt.getLength());
-		for (int i = 0; i < getInt.getLength(); i++) {
-			Node a = getInt.item(i);
-			getParent.removeChild(a.getParentNode());	
-		}
-		 
-		return document;
-		
-	}
-	
 	public static Document skillEdit(Document document, String skillInt) {
 		
 		Element getParent = (Element) document.getElementsByTagName("professions").item(0).getChildNodes();
-		System.out.println("[Edit] getParent: " + getParent);
+		System.out.println("Skill add complete");
+		
 		
 		Element intNode = document.createElement("int");
 		intNode.appendChild(document.createTextNode(skillInt));

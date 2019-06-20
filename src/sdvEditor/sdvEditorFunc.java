@@ -48,7 +48,7 @@ import org.xml.sax.SAXException;
 import func.NodeGS;
 import func.SkillEdit;
 import stringRes.StringMain;
-import func.Function;
+import func.Func;
 
 /**
  * @author AkaKSR
@@ -59,7 +59,7 @@ public class sdvEditorFunc {
 	public static void main(String[] args) throws InterruptedException, ParserConfigurationException, SAXException, IOException, TransformerException{
 		
 		// etc √ ±‚»≠
-		Function function = new Function();
+		Func function = new Func();
 		StringMain string = new StringMain();
 		SkillEdit se = new SkillEdit();
 		

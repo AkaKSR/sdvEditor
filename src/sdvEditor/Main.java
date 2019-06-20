@@ -56,9 +56,9 @@ import func.Function;
  */
 public class Main {
 
-	public static void main(String[] args) throws InterruptedException, ParserConfigurationException, SAXException, IOException, TransformerException{
+	public static void main(String[] args) throws SAXException, IOException, InterruptedException, ParserConfigurationException, TransformerException {
 		
-		// etc 초기화
+		// etc initialize
 		Function function = new Function();
 		StringMain string = new StringMain();
 		SkillEdit se = new SkillEdit();
@@ -66,11 +66,7 @@ public class Main {
 		//System.out.println(" -- sdvEditor Start -- ");
 		string.titleName();
 		
-		// DOM Factory 초기화
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-
-		// Scanner 초기화
+		// Scanner initialize
 		string.inputSave();
 		Scanner sc = new Scanner(System.in);
 		String savefile = sc.next();
@@ -78,26 +74,13 @@ public class Main {
 		System.out.println();
 		//sc.close();
 		
-		// XML 문서 파싱
-		Document document = documentBuilder.parse(savefile);
+		Document document = function.domInit().parse(savefile);
 		document.setXmlStandalone(true);
 		
-		// 파일 검증
-		if (document.getDocumentElement().getNodeName() == "SaveGame") {
-			System.out.println("Save Type : Main");
-		} else if (document.getDocumentElement().getNodeName() == "Farmer") {
-			System.out.println("Save Type : Info");
-			string.infoSave();
-			return;
-			
-		} else {
-			string.errorFile();
-			return;
-		}
+		// savefile check
+		function.saveCheck(document);
 		
 		NodeList nList = document.getElementsByTagName("player");
-		
-		System.out.println("------------------------");
 		
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			
@@ -107,7 +90,7 @@ public class Main {
 				Element eElement = (Element) nNode;
 				NodeGS ntv = new NodeGS();
 				
-				// 화면을 지운뒤 menu.mainMenu() 호출
+				// Clear screen and output menu.mainMenu()
 				System.out.println();
 				function.cls();
 				string.mainMenu();
@@ -128,9 +111,8 @@ public class Main {
 						
 						if (func.equals("Y")) {
 							
-							// Y일 경우
+							// Choose "Y"
 							System.out.println(" -- Skill Initializing Start -- ");
-							document = se.skillInit(document);
 							string.skillMenu();
 							System.out.println();
 							System.out.println("Please input skill Code:");
@@ -139,6 +121,7 @@ public class Main {
 							
 							while (true) {
 								
+								System.out.println("repeat? (Y/N) ");
 								func = sc.next();
 								func = func.toUpperCase();
 								
@@ -161,7 +144,7 @@ public class Main {
 							
 						} else if (func.equals("N")) {
 							
-							// N일 경우
+							// Choose "N"
 							System.out.print("Edit " + func + " : ");
 							String nsv = sc.next();
 							System.out.println();
@@ -169,23 +152,6 @@ public class Main {
 							System.out.println("after" + func + " : " + ntv.nodesv(func, eElement, nsv));
 							InfoSave is = new InfoSave();
 							is.infoSave(func, nsv);
-							System.out.println("---------Main Save Status---------");
-							System.out.println("name : " + ntv.nodegv("name", eElement));
-							System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
-							System.out.println("favoriteThing : " + ntv.nodegv("favoriteThing", eElement));
-							System.out.println("money : " + ntv.nodegv("money", eElement));
-							System.out.println("health : " + ntv.nodegv("health", eElement));
-							System.out.println("maxHealth : " + ntv.nodegv("maxHealth", eElement));
-							System.out.println("stamina : " + ntv.nodegv("stamina", eElement));
-							System.out.println("maxStamina : " + ntv.nodegv("maxStamina", eElement));
-							System.out.println("maxItems : " + ntv.nodegv("maxItems", eElement));
-							System.out.println("farmingLevel : " + ntv.nodegv("farmingLevel", eElement));
-							System.out.println("miningLevel : " + ntv.nodegv("miningLevel", eElement));
-							System.out.println("combatLevel : " + ntv.nodegv("combatLevel", eElement));
-							System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
-							System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
-							System.out.println("------------------------");
-							System.out.println();
 							System.out.println("Press Enter key...");
 							function.pause();
 							
@@ -200,23 +166,6 @@ public class Main {
 						System.out.println("after" + func + " : " + ntv.nodesv(func, eElement, nsv));
 						InfoSave is = new InfoSave();
 						is.infoSave(func, nsv);
-						System.out.println("---------Main Save Status---------");
-						System.out.println("name : " + ntv.nodegv("name", eElement));
-						System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
-						System.out.println("favoriteThing : " + ntv.nodegv("favoriteThing", eElement));
-						System.out.println("money : " + ntv.nodegv("money", eElement));
-						System.out.println("health : " + ntv.nodegv("health", eElement));
-						System.out.println("maxHealth : " + ntv.nodegv("maxHealth", eElement));
-						System.out.println("stamina : " + ntv.nodegv("stamina", eElement));
-						System.out.println("maxStamina : " + ntv.nodegv("maxStamina", eElement));
-						System.out.println("maxItems : " + ntv.nodegv("maxItems", eElement));
-						System.out.println("farmingLevel : " + ntv.nodegv("farmingLevel", eElement));
-						System.out.println("miningLevel : " + ntv.nodegv("miningLevel", eElement));
-						System.out.println("combatLevel : " + ntv.nodegv("combatLevel", eElement));
-						System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
-						System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
-						System.out.println("------------------------");
-						System.out.println();
 						System.out.println("Press Enter key...");
 						function.pause();
 						
@@ -224,23 +173,6 @@ public class Main {
 					
 					
 				} else if (menuint == 2) {
-					System.out.println("---------Main Save Status---------");
-					System.out.println("name : " + ntv.nodegv("name", eElement));
-					System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
-					System.out.println("favoriteThing : " + ntv.nodegv("favoriteThing", eElement));
-					System.out.println("money : " + ntv.nodegv("money", eElement));
-					System.out.println("health : " + ntv.nodegv("health", eElement));
-					System.out.println("maxHealth : " + ntv.nodegv("maxHealth", eElement));
-					System.out.println("stamina : " + ntv.nodegv("stamina", eElement));
-					System.out.println("maxStamina : " + ntv.nodegv("maxStamina", eElement));
-					System.out.println("maxItems : " + ntv.nodegv("maxItems", eElement));
-					System.out.println("farmingLevel : " + ntv.nodegv("farmingLevel", eElement));
-					System.out.println("miningLevel : " + ntv.nodegv("miningLevel", eElement));
-					System.out.println("combatLevel : " + ntv.nodegv("combatLevel", eElement));
-					System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
-					System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
-					System.out.println("------------------------");
-					System.out.println();
 					System.out.println("Press Enter key...");
 					function.pause();
 					return;
@@ -264,30 +196,9 @@ public class Main {
 			
 		}
 		
-		// XML 파일 저장
-		ByteArrayOutputStream out1 = new ByteArrayOutputStream();
+		// XML file save
+		function.fileSave(document, savefile);
 		
-		DOMSource source1 = new DOMSource(document);
-		StreamResult result1 = new StreamResult(out1);
-		
-		TransformerFactory transFactory1 = TransformerFactory.newInstance();
-		Transformer transformer1 = transFactory1.newTransformer();
-		
-		transformer1.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-		transformer1.transform(source1, result1);
-		
-		String xmlout1 = new String(out1.toByteArray(), StandardCharsets.UTF_8);
-		
-		System.out.println(" -- File Write Start -- ");
-		
-		FileOutputStream output1 = new FileOutputStream(savefile + "_modified", true);
-		OutputStreamWriter osw1 = new OutputStreamWriter(output1,"UTF-8");
-		BufferedWriter out2 = new BufferedWriter(osw1);
-		out2.write(xmlout1);
-		out2.close();
-		
-		System.out.println(" -- File Write End -- ");
 	}
-
-	
+		
 }

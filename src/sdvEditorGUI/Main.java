@@ -1,18 +1,21 @@
 package sdvEditorGUI;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FileDialog;
-import java.awt.TextField;
-
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.*;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import func.Function;
+import func.NodeGS;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -38,7 +41,7 @@ public class Main extends JFrame {
 	private JLabel lblMoney;
 	private JTextField txtMoney;
 	private JLabel lblHealth;
-	private JButton btnNewButton;
+	private JButton btnHelp;
 	private JLabel lblMaxHealth;
 	private JTextField txtHealth;
 	private JTextField txtMaxHealth;
@@ -50,9 +53,11 @@ public class Main extends JFrame {
 	private JTextField txtCombat;
 	private JTextField txtForaging;
 	private JTextField txtFish;
-	private JMenuBar menuBar;
-	private JMenuItem mntmAbout;
-	private JMenuItem mntmHelp;
+	public static Function function;
+	public static Document document;
+	public static NodeGS nodeGS;
+	private JTextPane txtpnLog;
+	private String loadPath;
 
 	/**
 	 * Launch the application.
@@ -77,64 +82,14 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("res\\about_32x32.png"));
+		setFont(new Font("Cousine", Font.BOLD, 12));
 		setTitle("Stardew Valley Save Editor - sdvEditor GUI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 750, 543);
 		
 		JFileChooser chooser;
 		chooser = new JFileChooser();
-		
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
-		
-		JMenuItem mntmOpen = new JMenuItem("Open");
-		mnFile.add(mntmOpen);
-		
-		mnFile.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Stardew Valley Save File", "*.*");
-				chooser.setFileFilter(filter);
-				
-				int ret = chooser.showOpenDialog(null);
-				if (ret != JFileChooser.APPROVE_OPTION) {
-					
-					JOptionPane.showMessageDialog(null, "File not Selected.", "Warning", JOptionPane.WARNING_MESSAGE);
-					
-					txtName.setText("성공");
-					
-					return;
-					
-				}
-				
-				String filePath = chooser.getSelectedFile().getPath();
-				txtName.setText("케릭터 이름");
-				
-			}
-		});
-		
-		
-		JMenuItem mntmSave = new JMenuItem("Save");
-		mnFile.add(mntmSave);
-		
-		JMenu mnBackup = new JMenu("Backup");
-		menuBar.add(mnBackup);
-		
-		JMenuItem mntmBackup = new JMenuItem("Backup");
-		mnBackup.add(mntmBackup);
-		
-		JMenu mnHelp = new JMenu("Help");
-		menuBar.add(mnHelp);
-		
-		mntmAbout = new JMenuItem("About");
-		mnHelp.add(mntmAbout);
-		
-		mntmHelp = new JMenuItem("Help");
-		mnHelp.add(mntmHelp);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -142,16 +97,47 @@ public class Main extends JFrame {
 		setVisible(true);
 		
 		JButton btnOpen = new JButton("Open");
+		btnOpen.setFont(new Font("Cousine", Font.BOLD, 12));
 		btnOpen.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				/*
-				 * 파일오픈 부분
-				 * String filePath에 파일 경로 정보가 담김.
-				 */
 				FileOpen fileOpen = new FileOpen();
-				String loadPath = fileOpen.filePath;
+				loadPath = fileOpen.filePath;
+				System.out.println(loadPath);
+				
+				try {
+					document = function.domInit().parse(loadPath);
+					document.setXmlStandalone(true);
+					NodeList nList = document.getElementsByTagName("player");
+					
+					for (int temp = 0; temp < nList.getLength(); temp++) {
+						Node nNode = nList.item(temp);
+						
+						if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+							Element eElement = (Element) nNode;
+							txtName.setText(nodeGS.nodegv("name", eElement));
+							txtMoney.setText(nodeGS.nodegv("money", eElement));
+							txtInv.setText(nodeGS.nodegv("maxItems", eElement));
+							txtHealth.setText(nodeGS.nodegv("health", eElement));
+							txtMaxHealth.setText(nodeGS.nodegv("maxHealth", eElement));
+							txtStamina.setText(nodeGS.nodegv("stamina", eElement));
+							txtMaxStamina.setText(nodeGS.nodegv("maxStamina", eElement));
+							txtFarm.setText(nodeGS.nodegv("farmingLevel", eElement));
+							txtMine.setText(nodeGS.nodegv("miningLevel", eElement));
+							txtCombat.setText(nodeGS.nodegv("combatLevel", eElement));
+							txtForaging.setText(nodeGS.nodegv("foragingLevel", eElement));
+							txtFish.setText(nodeGS.nodegv("fishingLevel", eElement));
+							txtpnLog.setText("File Load Complete.");
+						}
+						
+					}
+					
+				} catch (SAXException | IOException | ParserConfigurationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					txtpnLog.setText("Wrong File Load.");
+				}
 				
 			}
 		});
@@ -159,22 +145,59 @@ public class Main extends JFrame {
 		contentPane.add(btnOpen);
 		
 		JLabel lblName = new JLabel("Name");
+		lblName.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblName.setBounds(14, 66, 62, 18);
 		contentPane.add(lblName);
 		
 		txtName = new JTextField();
-		txtName.setText("NameValue");
+		txtName.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtName.setBounds(14, 89, 116, 24);
 		contentPane.add(txtName);
 		txtName.setColumns(10);
 		
 		btnSave = new JButton("Save");
+		btnSave.setFont(new Font("Cousine", Font.BOLD, 12));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				// 세이브 버튼 이벤트 부분
-				FileSave fileSave = new FileSave();
-				String savePath = fileSave.filePath;
+				// File Save
+//				FileSave fileSave = new FileSave();
+//				String savePath = fileSave.filePath;
+				System.out.println(loadPath);
+				
+				try {
+					document = function.domInit().parse(loadPath);
+					document.setXmlStandalone(true);
+					NodeList nList = document.getElementsByTagName("player");
+					
+					for (int temp = 0; temp < nList.getLength(); temp++) {
+						Node nNode = nList.item(temp);
+						
+						if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+							Element eElement = (Element) nNode;
+							nodeGS.nodesv("name", eElement, txtName.getText());
+							nodeGS.nodesv("money", eElement, txtMoney.getText());
+							nodeGS.nodesv("maxItems", eElement, txtInv.getText());
+							nodeGS.nodesv("health", eElement, txtHealth.getText());
+							nodeGS.nodesv("maxHealth", eElement, txtMaxHealth.getText());
+							nodeGS.nodesv("stamina", eElement, txtStamina.getText());
+							nodeGS.nodesv("maxStamina", eElement, txtMaxStamina.getText());
+							nodeGS.nodesv("farmingLevel", eElement, txtFarm.getText());
+							nodeGS.nodesv("miningLevel", eElement, txtMine.getText());
+							nodeGS.nodesv("combatLevel", eElement, txtCombat.getText());
+							nodeGS.nodesv("foragingLevel", eElement, txtForaging.getText());
+							nodeGS.nodesv("fishingLevel", eElement, txtFish.getText());
+							function.fileSave(document, loadPath);
+							txtpnLog.setText("File Save Complete.");
+						}
+						
+					}
+					
+				} catch (SAXException | IOException | ParserConfigurationException | TransformerException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					txtpnLog.setText("File Save Error.");
+				}
 				
 			}
 		});
@@ -182,10 +205,11 @@ public class Main extends JFrame {
 		contentPane.add(btnSave);
 		
 		btnExit = new JButton("Exit");
+		btnExit.setFont(new Font("Cousine", Font.BOLD, 12));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				System.exit(0);
 				
 			}
 		});
@@ -193,125 +217,172 @@ public class Main extends JFrame {
 		contentPane.add(btnExit);
 		
 		btnAbout = new JButton("About");
+		btnAbout.setFont(new Font("Cousine", Font.BOLD, 12));
+		btnAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				About.main();
+				
+			}
+		});
 		btnAbout.setBounds(490, 12, 105, 27);
 		contentPane.add(btnAbout);
 		
-		btnBackup = new JButton("Backup");
-		btnBackup.setBounds(252, 12, 105, 27);
-		contentPane.add(btnBackup);
-		
 		lblMoney = new JLabel("Money");
+		lblMoney.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblMoney.setBounds(133, 66, 62, 18);
 		contentPane.add(lblMoney);
 		
 		txtMoney = new JTextField();
-		txtMoney.setText("MoneyValue");
+		txtMoney.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtMoney.setBounds(133, 89, 116, 24);
 		contentPane.add(txtMoney);
 		txtMoney.setColumns(10);
 		
 		lblHealth = new JLabel("Health");
+		lblHealth.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblHealth.setBounds(14, 125, 62, 18);
 		contentPane.add(lblHealth);
 		
-		btnNewButton = new JButton("Help");
-		btnNewButton.setBounds(371, 12, 105, 27);
-		contentPane.add(btnNewButton);
+		btnHelp = new JButton("Help");
+		btnHelp.setFont(new Font("Cousine", Font.BOLD, 12));
+		btnHelp.setBounds(371, 12, 105, 27);
+		contentPane.add(btnHelp);
 		
 		lblMaxHealth = new JLabel("Max Health");
+		lblMaxHealth.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblMaxHealth.setBounds(133, 125, 105, 18);
 		contentPane.add(lblMaxHealth);
 		
 		txtHealth = new JTextField();
-		txtHealth.setText("HealthValue");
+		txtHealth.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtHealth.setBounds(14, 148, 116, 24);
 		contentPane.add(txtHealth);
 		txtHealth.setColumns(10);
 		
 		txtMaxHealth = new JTextField();
-		txtMaxHealth.setText("MaxHealthValue");
+		txtMaxHealth.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtMaxHealth.setBounds(133, 148, 116, 24);
 		contentPane.add(txtMaxHealth);
 		txtMaxHealth.setColumns(10);
 		
 		JLabel lblStamina = new JLabel("Stamina");
+		lblStamina.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblStamina.setBounds(252, 125, 62, 18);
 		contentPane.add(lblStamina);
 		
 		txtStamina = new JTextField();
-		txtStamina.setText("StaminaValue");
+		txtStamina.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtStamina.setColumns(10);
 		txtStamina.setBounds(252, 148, 116, 24);
 		contentPane.add(txtStamina);
 		
 		JLabel lblMaxStamina = new JLabel("Max Stamina");
+		lblMaxStamina.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblMaxStamina.setBounds(371, 125, 105, 18);
 		contentPane.add(lblMaxStamina);
 		
 		txtMaxStamina = new JTextField();
-		txtMaxStamina.setText("MSValue");
+		txtMaxStamina.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtMaxStamina.setColumns(10);
 		txtMaxStamina.setBounds(371, 148, 116, 24);
 		contentPane.add(txtMaxStamina);
 		
 		JLabel lblMaxInv = new JLabel("Max Inv.");
+		lblMaxInv.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblMaxInv.setBounds(252, 66, 62, 18);
 		contentPane.add(lblMaxInv);
 		
 		txtInv = new JTextField();
-		txtInv.setText("Inv. Value");
+		txtInv.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtInv.setColumns(10);
 		txtInv.setBounds(252, 89, 116, 24);
 		contentPane.add(txtInv);
 		
 		JLabel lblFarmingLevel = new JLabel("Farming Level");
+		lblFarmingLevel.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblFarmingLevel.setBounds(14, 184, 105, 18);
 		contentPane.add(lblFarmingLevel);
 		
 		txtFarm = new JTextField();
-		txtFarm.setText("FarmValue");
+		txtFarm.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtFarm.setColumns(10);
 		txtFarm.setBounds(14, 207, 116, 24);
 		contentPane.add(txtFarm);
 		
 		JLabel lblMiningLevel = new JLabel("Mining Level");
+		lblMiningLevel.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblMiningLevel.setBounds(133, 184, 105, 18);
 		contentPane.add(lblMiningLevel);
 		
 		txtMine = new JTextField();
-		txtMine.setText("MineValue");
+		txtMine.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtMine.setColumns(10);
 		txtMine.setBounds(133, 207, 116, 24);
 		contentPane.add(txtMine);
 		
 		JLabel lblCombatLevel = new JLabel("Combat Level");
+		lblCombatLevel.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblCombatLevel.setBounds(252, 184, 105, 18);
 		contentPane.add(lblCombatLevel);
 		
 		txtCombat = new JTextField();
-		txtCombat.setText("CombatValue");
+		txtCombat.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtCombat.setColumns(10);
 		txtCombat.setBounds(252, 207, 116, 24);
 		contentPane.add(txtCombat);
 		
 		JLabel lblForagingLevel = new JLabel("Foraging Level");
+		lblForagingLevel.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblForagingLevel.setBounds(371, 184, 105, 18);
 		contentPane.add(lblForagingLevel);
 		
 		txtForaging = new JTextField();
-		txtForaging.setText("ForagingValue");
+		txtForaging.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtForaging.setColumns(10);
 		txtForaging.setBounds(371, 207, 116, 24);
 		contentPane.add(txtForaging);
 		
 		JLabel lblFishingLevel = new JLabel("Fishing Level");
+		lblFishingLevel.setFont(new Font("Cousine", Font.BOLD, 12));
 		lblFishingLevel.setBounds(490, 184, 105, 18);
 		contentPane.add(lblFishingLevel);
 		
 		txtFish = new JTextField();
-		txtFish.setText("FishValue");
+		txtFish.setFont(new Font("Cousine", Font.BOLD, 12));
 		txtFish.setColumns(10);
 		txtFish.setBounds(490, 207, 116, 24);
 		contentPane.add(txtFish);
+		
+		txtpnLog = new JTextPane();
+		txtpnLog.setEnabled(false);
+		txtpnLog.setEditable(false);
+		txtpnLog.setFont(new Font("Cousine", Font.BOLD, 12));
+		txtpnLog.setBounds(12, 335, 726, 163);
+		contentPane.add(txtpnLog);
+		
+		JButton clear = new JButton("Clear");
+		clear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				txtName.setText("");
+				txtMoney.setText("");
+				txtInv.setText("");
+				txtHealth.setText("");
+				txtMaxHealth.setText("");
+				txtStamina.setText("");
+				txtMaxStamina.setText("");
+				txtFarm.setText("");
+				txtMine.setText("");
+				txtCombat.setText("");
+				txtForaging.setText("");
+				txtFish.setText("");
+				txtpnLog.setText("Clear Complete.");
+				
+			}
+		});
+		clear.setFont(new Font("Cousine", Font.BOLD, 12));
+		clear.setBounds(250, 12, 105, 27);
+		contentPane.add(clear);
 	}
 }
