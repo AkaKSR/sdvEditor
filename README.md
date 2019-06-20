@@ -3,6 +3,10 @@
 author: AkaKSR<br />
 version: 0.4<br />
 
+# Important
+<b> sdvEditorGUI Initialize </b> <br/>
+<b> sdvEditor(main) Refactory.(Unstable) </b> <br/>
+
 # Changelog
 <b>0.1</b><br/>
 First initilize<br/><br/>
