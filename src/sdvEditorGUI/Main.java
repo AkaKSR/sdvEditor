@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import func.Function;
 import func.NodeGS;
+import res.*;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -27,8 +28,10 @@ import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+import javax.imageio.ImageIO;
 
 public class Main extends JFrame {
 
@@ -82,7 +85,8 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("res\\about_32x32.png"));
+		URL imageurl = getClass().getClassLoader().getResource("about_32x32.png");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(imageurl));
 		setFont(new Font("Cousine", Font.BOLD, 12));
 		setTitle("Stardew Valley Save Editor - sdvEditor GUI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -221,7 +225,7 @@ public class Main extends JFrame {
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				About.main();
+				About.run();
 				
 			}
 		});
@@ -245,6 +249,13 @@ public class Main extends JFrame {
 		contentPane.add(lblHealth);
 		
 		btnHelp = new JButton("Help");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Help.run();
+				
+			}
+		});
 		btnHelp.setFont(new Font("Cousine", Font.BOLD, 12));
 		btnHelp.setBounds(371, 12, 105, 27);
 		contentPane.add(btnHelp);
@@ -358,7 +369,8 @@ public class Main extends JFrame {
 		txtpnLog.setEnabled(false);
 		txtpnLog.setEditable(false);
 		txtpnLog.setFont(new Font("Cousine", Font.BOLD, 12));
-		txtpnLog.setBounds(12, 335, 726, 163);
+		txtpnLog.setBounds(14, 335, 704, 149);
+		txtpnLog.setText("sdvEditor GUI initialize Complete.");
 		contentPane.add(txtpnLog);
 		
 		JButton clear = new JButton("Clear");

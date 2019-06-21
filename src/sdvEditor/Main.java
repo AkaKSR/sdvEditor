@@ -47,7 +47,7 @@ import org.xml.sax.SAXException;
 
 import func.NodeGS;
 import func.SkillEdit;
-import stringRes.StringMain;
+import res.StringMain;
 import func.Function;
 
 /**
