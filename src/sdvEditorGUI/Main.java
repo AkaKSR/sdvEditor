@@ -1,10 +1,8 @@
 package sdvEditorGUI;
 
-import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -15,18 +13,15 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import func.Function;
-import func.NodeGS;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.*;
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 
@@ -37,7 +32,6 @@ public class Main extends JFrame {
 	private JButton btnSave;
 	private JButton btnExit;
 	private JButton btnAbout;
-	private JButton btnBackup;
 	private JLabel lblMoney;
 	private JTextField txtMoney;
 	private JLabel lblHealth;
@@ -55,7 +49,7 @@ public class Main extends JFrame {
 	private JTextField txtFish;
 	public static Function function;
 	public static Document document;
-	public static NodeGS nodeGS;
+//	public static NodeGS nodeGS;
 	private JTextPane txtpnLog;
 	private String loadPath;
 
@@ -82,7 +76,8 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("res\\about_32x32.png"));
+		URL imageurl = getClass().getClassLoader().getResource("about_32x32.png");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(imageurl));
 		setFont(new Font("Cousine", Font.BOLD, 12));
 		setTitle("Stardew Valley Save Editor - sdvEditor GUI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,18 +111,18 @@ public class Main extends JFrame {
 						
 						if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 							Element eElement = (Element) nNode;
-							txtName.setText(nodeGS.nodegv("name", eElement));
-							txtMoney.setText(nodeGS.nodegv("money", eElement));
-							txtInv.setText(nodeGS.nodegv("maxItems", eElement));
-							txtHealth.setText(nodeGS.nodegv("health", eElement));
-							txtMaxHealth.setText(nodeGS.nodegv("maxHealth", eElement));
-							txtStamina.setText(nodeGS.nodegv("stamina", eElement));
-							txtMaxStamina.setText(nodeGS.nodegv("maxStamina", eElement));
-							txtFarm.setText(nodeGS.nodegv("farmingLevel", eElement));
-							txtMine.setText(nodeGS.nodegv("miningLevel", eElement));
-							txtCombat.setText(nodeGS.nodegv("combatLevel", eElement));
-							txtForaging.setText(nodeGS.nodegv("foragingLevel", eElement));
-							txtFish.setText(nodeGS.nodegv("fishingLevel", eElement));
+							txtName.setText(function.nodegv("name", eElement));
+							txtMoney.setText(function.nodegv("money", eElement));
+							txtInv.setText(function.nodegv("maxItems", eElement));
+							txtHealth.setText(function.nodegv("health", eElement));
+							txtMaxHealth.setText(function.nodegv("maxHealth", eElement));
+							txtStamina.setText(function.nodegv("stamina", eElement));
+							txtMaxStamina.setText(function.nodegv("maxStamina", eElement));
+							txtFarm.setText(function.nodegv("farmingLevel", eElement));
+							txtMine.setText(function.nodegv("miningLevel", eElement));
+							txtCombat.setText(function.nodegv("combatLevel", eElement));
+							txtForaging.setText(function.nodegv("foragingLevel", eElement));
+							txtFish.setText(function.nodegv("fishingLevel", eElement));
 							txtpnLog.setText("File Load Complete.");
 						}
 						
@@ -175,18 +170,18 @@ public class Main extends JFrame {
 						
 						if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 							Element eElement = (Element) nNode;
-							nodeGS.nodesv("name", eElement, txtName.getText());
-							nodeGS.nodesv("money", eElement, txtMoney.getText());
-							nodeGS.nodesv("maxItems", eElement, txtInv.getText());
-							nodeGS.nodesv("health", eElement, txtHealth.getText());
-							nodeGS.nodesv("maxHealth", eElement, txtMaxHealth.getText());
-							nodeGS.nodesv("stamina", eElement, txtStamina.getText());
-							nodeGS.nodesv("maxStamina", eElement, txtMaxStamina.getText());
-							nodeGS.nodesv("farmingLevel", eElement, txtFarm.getText());
-							nodeGS.nodesv("miningLevel", eElement, txtMine.getText());
-							nodeGS.nodesv("combatLevel", eElement, txtCombat.getText());
-							nodeGS.nodesv("foragingLevel", eElement, txtForaging.getText());
-							nodeGS.nodesv("fishingLevel", eElement, txtFish.getText());
+							function.nodesv("name", eElement, txtName.getText());
+							function.nodesv("money", eElement, txtMoney.getText());
+							function.nodesv("maxItems", eElement, txtInv.getText());
+							function.nodesv("health", eElement, txtHealth.getText());
+							function.nodesv("maxHealth", eElement, txtMaxHealth.getText());
+							function.nodesv("stamina", eElement, txtStamina.getText());
+							function.nodesv("maxStamina", eElement, txtMaxStamina.getText());
+							function.nodesv("farmingLevel", eElement, txtFarm.getText());
+							function.nodesv("miningLevel", eElement, txtMine.getText());
+							function.nodesv("combatLevel", eElement, txtCombat.getText());
+							function.nodesv("foragingLevel", eElement, txtForaging.getText());
+							function.nodesv("fishingLevel", eElement, txtFish.getText());
 							function.fileSave(document, loadPath);
 							txtpnLog.setText("File Save Complete.");
 						}
@@ -221,7 +216,7 @@ public class Main extends JFrame {
 		btnAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				About.main();
+				About.run();
 				
 			}
 		});
@@ -245,6 +240,13 @@ public class Main extends JFrame {
 		contentPane.add(lblHealth);
 		
 		btnHelp = new JButton("Help");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Help.run();
+				
+			}
+		});
 		btnHelp.setFont(new Font("Cousine", Font.BOLD, 12));
 		btnHelp.setBounds(371, 12, 105, 27);
 		contentPane.add(btnHelp);
@@ -358,7 +360,8 @@ public class Main extends JFrame {
 		txtpnLog.setEnabled(false);
 		txtpnLog.setEditable(false);
 		txtpnLog.setFont(new Font("Cousine", Font.BOLD, 12));
-		txtpnLog.setBounds(12, 335, 726, 163);
+		txtpnLog.setBounds(14, 335, 704, 149);
+		txtpnLog.setText("sdvEditor GUI initialize Complete.");
 		contentPane.add(txtpnLog);
 		
 		JButton clear = new JButton("Clear");

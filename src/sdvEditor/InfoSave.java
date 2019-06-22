@@ -1,9 +1,9 @@
 /**
  * FileName : ${InfoSave}
  * Comment  : Stardew Valley Save Editor(with SaveGameInfo)
- * version : 0.1
+ * version : 0.2
  * author  : AkaKSR
- * date    : ${2019.04.10}
+ * date    : ${2019.06.22}
  */
 
 package sdvEditor;
@@ -14,9 +14,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,8 +30,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+import func.Function;
 
-import func.NodeGS;
 
 /**
  * @author AkaKSR
@@ -78,29 +75,13 @@ public class InfoSave {
 				
 				Element eElement = (Element) nNode;
 				
-				NodeGS ntv = new NodeGS();
+//				NodeGS ntv = new NodeGS();
+				Function function = new Function();
 				
 					System.out.println();
-					System.out.println("info_before" + func + " : " + ntv.nodegv(func, eElement));
-					System.out.println("info_after" + func + " : " + ntv.nodesv(func, eElement, nsv));
+					System.out.println("info_before" + func + " : " + function.nodegv(func, eElement));
+					System.out.println("info_after" + func + " : " + function.nodesv(func, eElement, nsv));
 					System.out.println();
-					System.out.println("---------Infofile Status---------");
-					System.out.println("name : " + ntv.nodegv("name", eElement));
-					System.out.println("farmName : " + ntv.nodegv("farmName", eElement));
-					System.out.println("favoriteThing : " + ntv.nodegv("favoriteThing", eElement));
-					System.out.println("money : " + ntv.nodegv("money", eElement));
-					System.out.println("health : " + ntv.nodegv("health", eElement));
-					System.out.println("maxHealth : " + ntv.nodegv("maxHealth", eElement));
-					System.out.println("stamina : " + ntv.nodegv("stamina", eElement));
-					System.out.println("maxStamina : " + ntv.nodegv("maxStamina", eElement));
-					System.out.println("maxItems : " + ntv.nodegv("maxItems", eElement));
-					System.out.println("farmingLevel : " + ntv.nodegv("farmingLevel", eElement));
-					System.out.println("miningLevel : " + ntv.nodegv("miningLevel", eElement));
-					System.out.println("combatLevel : " + ntv.nodegv("combatLevel", eElement));
-					System.out.println("foragingLevel : " + ntv.nodegv("foragingLevel", eElement));
-					System.out.println("fishingLevel : " + ntv.nodegv("fishingLevel", eElement));
-					System.out.println("------------------------");
-				
 		}
 		
 		// XML 파일 저장

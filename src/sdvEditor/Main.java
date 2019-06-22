@@ -18,26 +18,11 @@
 
 package sdvEditor;
 
-import java.io.FileOutputStream;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,9 +30,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import func.NodeGS;
-import func.SkillEdit;
-import stringRes.StringMain;
+import res.StringMain;
 import func.Function;
 
 /**
@@ -61,7 +44,6 @@ public class Main {
 		// etc initialize
 		Function function = new Function();
 		StringMain string = new StringMain();
-		SkillEdit se = new SkillEdit();
 		
 		//System.out.println(" -- sdvEditor Start -- ");
 		string.titleName();
@@ -88,7 +70,7 @@ public class Main {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				
 				Element eElement = (Element) nNode;
-				NodeGS ntv = new NodeGS();
+//				NodeGS ntv = new NodeGS();
 				
 				// Clear screen and output menu.mainMenu()
 				System.out.println();
@@ -117,7 +99,7 @@ public class Main {
 							System.out.println();
 							System.out.println("Please input skill Code:");
 							skillInt = sc.next();
-							document = se.skillEdit(document, skillInt);
+							document = function.skillEdit(document, skillInt);
 							
 							while (true) {
 								
@@ -132,7 +114,7 @@ public class Main {
 								System.out.println();
 								System.out.print("Please input skill Code: ");
 								skillInt = sc.next();
-								document = se.skillEdit(document, skillInt);
+								document = function.skillEdit(document, skillInt);
 								
 							} else if (func.equals("N")) {
 								
@@ -148,8 +130,8 @@ public class Main {
 							System.out.print("Edit " + func + " : ");
 							String nsv = sc.next();
 							System.out.println();
-							System.out.println("before" + func + " : " + ntv.nodegv(func, eElement));
-							System.out.println("after" + func + " : " + ntv.nodesv(func, eElement, nsv));
+							System.out.println("before" + func + " : " + function.nodegv(func, eElement));
+							System.out.println("after" + func + " : " + function.nodesv(func, eElement, nsv));
 							InfoSave is = new InfoSave();
 							is.infoSave(func, nsv);
 							System.out.println("Press Enter key...");
@@ -162,8 +144,8 @@ public class Main {
 						System.out.print("Edit " + func + " : ");
 						String nsv = sc.next();
 						System.out.println();
-						System.out.println("before" + func + " : " + ntv.nodegv(func, eElement));
-						System.out.println("after" + func + " : " + ntv.nodesv(func, eElement, nsv));
+						System.out.println("before" + func + " : " + function.nodegv(func, eElement));
+						System.out.println("after" + func + " : " + function.nodesv(func, eElement, nsv));
 						InfoSave is = new InfoSave();
 						is.infoSave(func, nsv);
 						System.out.println("Press Enter key...");

@@ -26,7 +26,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class Function {
-	public static SkillEdit se = null;
 	public static Scanner sc = new Scanner(System.in);
 	public static Element eElement;
 	
@@ -37,7 +36,7 @@ public class Function {
 		} catch (IOException e) {}
 	}
 	
-	// Screen clear
+	// Screen clear(CLI Only)
 	public static void cls() {
 		for (int i = 0; i < 80; i++) {
 			System.out.println();
@@ -90,15 +89,44 @@ public class Function {
 		
 	}
 	
-	// Skill Edit_test
-	public static void skillEdit() {
+	// Skill Edit
+	public static Document skillEdit(Document document, String skillInt) {
+		
+		Element getParent = (Element) document.getElementsByTagName("professions").item(0).getChildNodes();
+		System.out.println("Skill add complete");
 		
 		
+		Element intNode = document.createElement("int");
+		intNode.appendChild(document.createTextNode(skillInt));
+		getParent.appendChild(intNode);
 		
+		return document;
 	}
 	
+	public static String nodegv(String gTag, Element eElement) {
+		NodeList nlList = eElement.getElementsByTagName(gTag).item(0).getChildNodes();
+		Node nValue = (Node) nlList.item(0);
+		
+		return nValue.getNodeValue();
+	}
 	
-	// Repeat_test
+	public static String nodesv(String gTag, Element eElement, String sca) {
+		NodeList nlList = eElement.getElementsByTagName(gTag).item(0).getChildNodes();
+		Node nValue = (Node) nlList.item(0);
+		
+		Scanner ns = new Scanner(sca);
+		String nss = ns.next();
+		ns.close();
+		nValue.setNodeValue(nss);
+		
+		return nValue.getNodeValue();
+	}
+	
+	/*
+	 * 이 아래부터는 구현 진행중....
+	 */
+	
+	// Repeat_test(CLI Only)
 	public static void repeatNode(Document document, String skillInt) {
 		while (true) {
 			
@@ -117,48 +145,6 @@ public class Function {
 				
 			}
 		}
-	}
-	
-	
-	
-	
-	
-	// Node initialize_test
-	public static void nodeInit(Document document) {
-		
-		NodeList nList = document.getElementsByTagName("player");
-		
-		for (int temp = 0; temp < nList.getLength(); temp++) {
-			
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-				
-				Element eElement = (Element) nNode;
-				NodeGS ntv = new NodeGS();
-				
-				// menuint == 1
-				if (true) {
-					
-					// func.equals("skill"))
-					if (true) {
-						
-						// func.equals("Y)"))
-						if (true) {
-							
-//							Scanner sc = new Scanner(System.in);
-							String skillInt = sc.next();
-							document = se.skillEdit(document, skillInt);
-							
-						}
-						
-					}
-					
-				}
-			}
-			
-		}
-		
 	}
 	
 }
