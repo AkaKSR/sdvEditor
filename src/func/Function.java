@@ -37,9 +37,11 @@ public class Function {
 	}
 	
 	// Screen clear(CLI Only)
-	public static void cls() {
-		for (int i = 0; i < 80; i++) {
-			System.out.println();
+	public static void cls() throws InterruptedException, IOException {
+		if (System.getProperty("os.name").contains("Windows")) {
+			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		} else {
+			Runtime.getRuntime().exec("clear");
 		}
 	}
 	
@@ -120,6 +122,23 @@ public class Function {
 		nValue.setNodeValue(nss);
 		
 		return nValue.getNodeValue();
+	}
+	
+	public static void removeAllNode(Document document) {
+		Element getParent = (Element) document.getElementsByTagName("professions").item(0);
+		int nodeNum = document.getElementsByTagName("professions").item(0).getChildNodes().getLength();
+		for (int i = 0; i < nodeNum; i++) {
+			getParent.removeChild(getParent.getChildNodes().item(0));
+		}
+	}
+	
+	public static void nodeLengthCheck(Document document) {
+		Node nNode = (Node)document.getElementsByTagName("professions").item(0);
+		int nodeLength = document.getElementsByTagName("professions").item(0).getChildNodes().getLength();
+		
+		for (int i = 0; i < nodeLength; i++) {
+			String getNodeContent = nNode.getChildNodes().item(i).getTextContent();
+		}
 	}
 	
 	/*

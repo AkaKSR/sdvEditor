@@ -1,6 +1,5 @@
 package sdvEditorGUI;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -9,9 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import java.awt.Toolkit;
-import javax.swing.JTextField;
 import java.awt.Font;
 
 public class About {
@@ -21,10 +18,25 @@ public class About {
 	/**
 	 * Launch the application.
 	 */
+	// Main code
 	public static void run() {
 		About window = new About();
 		window.frame.setVisible(true);
 	}
+	
+	// Test code
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					About window = new About();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -75,9 +87,14 @@ public class About {
 		lblStardewValleySave.setBounds(128, 39, 264, 27);
 		frame.getContentPane().add(lblStardewValleySave);
 		
-		JLabel lblVersionBuild = new JLabel("Version 0.1, Build 1906 (Unstable)");
-		lblVersionBuild.setFont(new Font("Consolas", Font.PLAIN, 15));
+		JLabel lblVersionBuild = new JLabel("GUI: Version 0.11, Build 1906_1 (Stable)");
+		lblVersionBuild.setFont(new Font("Consolas", Font.PLAIN, 13));
 		lblVersionBuild.setBounds(122, 175, 290, 27);
 		frame.getContentPane().add(lblVersionBuild);
+		
+		JLabel lblCliVersion = new JLabel("CLI: Version 0.5, Build 1905 (Stable)");
+		lblCliVersion.setFont(new Font("Consolas", Font.PLAIN, 13));
+		lblCliVersion.setBounds(122, 152, 290, 27);
+		frame.getContentPane().add(lblCliVersion);
 	}
 }

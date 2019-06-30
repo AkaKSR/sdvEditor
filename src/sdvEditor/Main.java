@@ -1,19 +1,9 @@
 /**
  * FileName : ${sdvEditor}
  * Comment  : Stardew Valley Save Editor
- * version : 0.4.1
+ * version : 0.5
  * author  : AkaKSR
- * date    : ${2019.04.19}
- */
-
-/*
- * Changelog
- * 0.1 = Project Initial
- * 0.2 = Buffer Exception bug fix / First Release
- * 0.2.1 = exe file Release
- * 0.3 = New function add(farmName, favoriteThing) / Support SaveGameInfo file / Android savefile bug fix
- * 0.4 = New function add(skill = professions)
- * 0.4.1 = skill function bug fix
+ * date    : ${2019.05.04}
  */
 
 package sdvEditor;
@@ -70,7 +60,6 @@ public class Main {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				
 				Element eElement = (Element) nNode;
-//				NodeGS ntv = new NodeGS();
 				
 				// Clear screen and output menu.mainMenu()
 				System.out.println();
@@ -87,57 +76,8 @@ public class Main {
 					
 					if (func.equals("skill")) {
 						
-						string.skillEdit();
-						func = sc.next();
-						func = func.toUpperCase();
-						
-						if (func.equals("Y")) {
-							
-							// Choose "Y"
-							System.out.println(" -- Skill Initializing Start -- ");
-							string.skillMenu();
-							System.out.println();
-							System.out.println("Please input skill Code:");
-							skillInt = sc.next();
-							document = function.skillEdit(document, skillInt);
-							
-							while (true) {
-								
-								System.out.println("repeat? (Y/N) ");
-								func = sc.next();
-								func = func.toUpperCase();
-								
-							if (func.equals("Y")) {
-								
-								System.out.println(" -- Skill Edit Start -- ");
-								string.skillMenu();
-								System.out.println();
-								System.out.print("Please input skill Code: ");
-								skillInt = sc.next();
-								document = function.skillEdit(document, skillInt);
-								
-							} else if (func.equals("N")) {
-								
-								break;
-								
-							}
-							
-							}
-							
-						} else if (func.equals("N")) {
-							
-							// Choose "N"
-							System.out.print("Edit " + func + " : ");
-							String nsv = sc.next();
-							System.out.println();
-							System.out.println("before" + func + " : " + function.nodegv(func, eElement));
-							System.out.println("after" + func + " : " + function.nodesv(func, eElement, nsv));
-							InfoSave is = new InfoSave();
-							is.infoSave(func, nsv);
-							System.out.println("Press Enter key...");
-							function.pause();
-							
-						}
+						SkillEdit skillEdit = new SkillEdit();
+						skillEdit.SkillEdit(document);
 						
 					} else {
 						
@@ -170,7 +110,6 @@ public class Main {
 					function.pause();
 					return;
 				}
-				
 				
 				sc.close();
 				

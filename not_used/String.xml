@@ -15,42 +15,44 @@
 		<!--Fishing Skill-->
 		<Fishing>낚시</Fishing>
 		<fisher>낚시꾼</fisher>
-		<trapper></trapper>
-		<angler></angler>
-		<pirate></pirate>
-		<mariner></mariner>
-		<luremaster></luremaster>
+		<trapper>함정 전문가</trapper>
+		<angler>아귀</angler>
+		<pirate>해적</pirate>
+		<mariner>선원</mariner>
+		<luremaster>미끼 장인</luremaster>
 		<!--Foraging Skill-->
-		<Foraging></Foraging>
-		<forester></forester>
-		<forager></forager>
-		<lumberjack></lumberjack>
-		<tapper></tapper>
-		<botanist></botanist>
-		<tracker></tracker>
+		<Foraging>채집</Foraging>
+		<forester>숲지기</forester>
+		<forager>채집가</forager>
+		<lumberjack>벌목꾼</lumberjack>
+		<tapper>수액 채취기</tapper>
+		<botanist>식물학자</botanist>
+		<tracker>추적자</tracker>
 		<!--Mining Skill-->
-		<Mining></Mining>
-		<miner></miner>
-		<geologist></geologist>
-		<blacksmith></blacksmith>
-		<prospector></prospector>
-		<excavator></excavator>
-		<gemologist></gemologist>
+		<Mining>채광</Mining>
+		<miner>광부</miner>
+		<geologist>지질학자</geologist>
+		<blacksmith>대장장이</blacksmith>
+		<prospector>탐사자</prospector>
+		<excavator>발굴자</excavator>
+		<gemologist>보석 감정사</gemologist>
 		<!--Combat Skill-->
-		<Combat></Combat>
-		<fighter></fighter>
-		<scout></scout>
-		<brute></brute>
-		<defender></defender>
-		<acrobat></acrobat>
-		<desperado></desperado>
+		<Combat>전투</Combat>
+		<fighter>전사</fighter>
+		<scout>정찰자</scout>
+		<brute>짐승</brute>
+		<defender>수비수</defender>
+		<acrobat>곡예사</acrobat>
+		<desperado>무법자</desperado>
 		<!--Menu-->
-		<mainmenu>----------Menu----------</mainmenu>
-		<mainmenu_1></mainmenu_1>
-		<mainmenu_2></mainmenu_2>
-		<mainmenu_3></mainmenu_3>
-		<mainmenu_a></mainmenu_a>
-		<menunum></menunum>
+		<Open>열기</Open>
+		<Save>저장</Save>
+		<Clear>청소</Clear>
+		<Help>도움말</Help>
+		<About>About</About>
+		<Exit>종료</Exit>
+		<!--Help-->
+		<helpString>sdvEditor GUI 도움말\r\n1. 열기 버튼을 눌러 Stardew Valley의 원하는 세이브파일을 불러옵니다.\r\n*세이브파일 예시*\r\n*플레이어이름_고유ID*\r\nex) AkaKSR_154449785\r\n2. 에디터에서 원하는 항목을 수정합니다.\r\n3. 저장 버튼을 눌러서 세이브 파일을 저장합니다.\r\n*저장된 세이브파일의 끝에 _modified가 붙습니다.*\r\n*_modified를 지운뒤에 세이브폴더에 넣어주셔야 정상동작합니다.*\r\n4. 이제 수정된 게임에서 세이브 파일을 불러와서 즐깁니다. (개이득)\r\n\r\n-----------------------------------\r\n\r\n버튼 설명\r\n열기: 세이브 파일을 불러옵니다.\r\n저장: 세이브 파일을 저장합니다.\r\n청소: 에디터를 말끔하게 청소합니다.\r\n도움말: sdvEditor GUI의 도움말을 엽니다.\r\nAbout: sdvEditor GUI의 정보를 엽니다.\r\n종료: 프로그램을 종료합니다.</helpString>
 	</string>
 
 </sdvEditor>

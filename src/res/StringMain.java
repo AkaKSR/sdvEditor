@@ -42,6 +42,7 @@ public class StringMain {
 		System.out.println(" (24) - Fighter 	(25) - Scout");
 		System.out.println(" (26) - Brute		(27) - Defender");
 		System.out.println(" (28) - Acrobat		(29) - Desperado");
+		System.out.println("You want out Menu.. type \"exit\"");
 		
 	}
 	

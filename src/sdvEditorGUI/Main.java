@@ -1,3 +1,12 @@
+/**
+ * FileName	: sdvEditor GUI
+ * Comment	: Stardew Valley Save Editor GUI
+ * version	: 0.11
+ * author	: AkaKSR
+ * date		: 2019.06.26
+ * build	: 1906_01 Stable
+ */
+
 package sdvEditorGUI;
 
 import javax.swing.JFrame;
@@ -24,6 +33,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+import javax.swing.JCheckBox;
 
 public class Main extends JFrame {
 
@@ -49,10 +59,15 @@ public class Main extends JFrame {
 	private JTextField txtFish;
 	public static Function function;
 	public static Document document;
-//	public static NodeGS nodeGS;
 	private JTextPane txtpnLog;
 	private String loadPath;
-
+	private JLabel lblSkill;
+	private JLabel lblFarming;
+	private JLabel lblFishing;
+	private JLabel lblForaging;
+	private JLabel lblMining;
+	private JLabel lblCombat;
+	
 	/**
 	 * Launch the application.
 	 * @throws IOException 
@@ -81,7 +96,7 @@ public class Main extends JFrame {
 		setFont(new Font("Cousine", Font.BOLD, 12));
 		setTitle("Stardew Valley Save Editor - sdvEditor GUI");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 750, 543);
+		setBounds(100, 100, 750, 583);
 		
 		JFileChooser chooser;
 		chooser = new JFileChooser();
@@ -91,6 +106,7 @@ public class Main extends JFrame {
 		contentPane.setLayout(null);
 		setVisible(true);
 		
+		JCheckBox[] chkBox = new JCheckBox[30];
 		JButton btnOpen = new JButton("Open");
 		btnOpen.setFont(new Font("Cousine", Font.BOLD, 12));
 		btnOpen.addActionListener(new ActionListener() {
@@ -108,6 +124,16 @@ public class Main extends JFrame {
 					
 					for (int temp = 0; temp < nList.getLength(); temp++) {
 						Node nNode = nList.item(temp);
+						Node lNode = document.getElementsByTagName("professions").item(0);
+						int nodeLength = lNode.getChildNodes().getLength();
+						System.out.println(nodeLength);
+						
+						for (int i = 0; i < nodeLength; i++) {
+							String nodeStringValue = lNode.getChildNodes().item(i).getTextContent();
+							int nodeValue = Integer.parseInt(nodeStringValue);
+							chkBox[nodeValue].setSelected(true);
+						}
+						
 						
 						if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 							Element eElement = (Element) nNode;
@@ -156,8 +182,6 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// File Save
-//				FileSave fileSave = new FileSave();
-//				String savePath = fileSave.filePath;
 				System.out.println(loadPath);
 				
 				try {
@@ -182,6 +206,15 @@ public class Main extends JFrame {
 							function.nodesv("combatLevel", eElement, txtCombat.getText());
 							function.nodesv("foragingLevel", eElement, txtForaging.getText());
 							function.nodesv("fishingLevel", eElement, txtFish.getText());
+							
+							function.removeAllNode(document);
+							for (int i = 0; i < chkBox.length; i++) {
+								if (chkBox[i].isSelected() == true) {
+									String skillInt = Integer.toString(i);
+									Function.skillEdit(document, skillInt);
+								}
+							}
+							
 							function.fileSave(document, loadPath);
 							txtpnLog.setText("File Save Complete.");
 						}
@@ -357,10 +390,10 @@ public class Main extends JFrame {
 		contentPane.add(txtFish);
 		
 		txtpnLog = new JTextPane();
-		txtpnLog.setEnabled(false);
+		txtpnLog.setForeground(Color.BLACK);
 		txtpnLog.setEditable(false);
 		txtpnLog.setFont(new Font("Cousine", Font.BOLD, 12));
-		txtpnLog.setBounds(14, 335, 704, 149);
+		txtpnLog.setBounds(14, 497, 704, 27);
 		txtpnLog.setText("sdvEditor GUI initialize Complete.");
 		contentPane.add(txtpnLog);
 		
@@ -380,6 +413,11 @@ public class Main extends JFrame {
 				txtCombat.setText("");
 				txtForaging.setText("");
 				txtFish.setText("");
+				
+				for (int i = 0; i < chkBox.length; i++) {
+					chkBox[i].setSelected(false);
+				}
+				
 				txtpnLog.setText("Clear Complete.");
 				
 			}
@@ -387,5 +425,161 @@ public class Main extends JFrame {
 		clear.setFont(new Font("Cousine", Font.BOLD, 12));
 		clear.setBounds(250, 12, 105, 27);
 		contentPane.add(clear);
+		
+		JLabel lblDialog = new JLabel("Dialog");
+		lblDialog.setFont(new Font("Cousine", Font.BOLD, 12));
+		lblDialog.setBounds(14, 480, 62, 18);
+		contentPane.add(lblDialog);
+		
+		// SkillEdit CheckBox
+		lblSkill = new JLabel("Skill");
+		lblSkill.setFont(new Font("Cousine", Font.BOLD, 12));
+		lblSkill.setBounds(14, 243, 62, 18);
+		contentPane.add(lblSkill);
+		
+		chkBox[0] = new JCheckBox("Rancher");
+		chkBox[0].setBounds(14, 290, 105, 27);
+		contentPane.add(chkBox[0]);
+		
+		chkBox[1] = new JCheckBox("Tiller");
+		chkBox[1].setBounds(14, 321, 105, 27);
+		contentPane.add(chkBox[1]);
+		
+		chkBox[2] = new JCheckBox("Coopmaster");
+		chkBox[2].setBounds(14, 352, 116, 27);
+		contentPane.add(chkBox[2]);
+		
+		chkBox[3] = new JCheckBox("Shepard");
+		chkBox[3].setBounds(14, 383, 105, 27);
+		contentPane.add(chkBox[3]);
+		
+		chkBox[4] = new JCheckBox("Artisan");
+		chkBox[4].setBounds(14, 414, 105, 27);
+		contentPane.add(chkBox[4]);
+		
+		chkBox[5] = new JCheckBox("Agricultist");
+		chkBox[5].setBounds(14, 445, 105, 27);
+		contentPane.add(chkBox[5]);
+		
+		lblFarming = new JLabel("Farming");
+		lblFarming.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblFarming.setBounds(14, 261, 62, 18);
+		contentPane.add(lblFarming);
+		
+		lblFishing = new JLabel("Fishing");
+		lblFishing.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblFishing.setBounds(133, 261, 62, 18);
+		contentPane.add(lblFishing);
+		
+		chkBox[6] = new JCheckBox("Fisher");
+		chkBox[6].setBounds(133, 290, 105, 27);
+		contentPane.add(chkBox[6]);
+		
+		chkBox[7] = new JCheckBox("Trapper");
+		chkBox[7].setBounds(133, 321, 105, 27);
+		contentPane.add(chkBox[7]);
+		
+		chkBox[8] = new JCheckBox("Angler");
+		chkBox[8].setBounds(133, 352, 105, 27);
+		contentPane.add(chkBox[8]);
+		
+		chkBox[9] = new JCheckBox("Pirate");
+		chkBox[9].setBounds(133, 383, 105, 27);
+		contentPane.add(chkBox[9]);
+		
+		chkBox[10] = new JCheckBox("Mariner");
+		chkBox[10].setBounds(133, 414, 105, 27);
+		contentPane.add(chkBox[10]);
+		
+		chkBox[11] = new JCheckBox("Luremaster");
+		chkBox[11].setBounds(133, 445, 105, 27);
+		contentPane.add(chkBox[11]);
+		
+		lblForaging = new JLabel("Foraging");
+		lblForaging.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblForaging.setBounds(252, 261, 62, 18);
+		contentPane.add(lblForaging);
+		
+		chkBox[12] = new JCheckBox("Forester");
+		chkBox[12].setBounds(252, 290, 105, 27);
+		contentPane.add(chkBox[12]);
+		
+		chkBox[13] = new JCheckBox("Forager");
+		chkBox[13].setBounds(252, 321, 105, 27);
+		contentPane.add(chkBox[13]);
+		
+		chkBox[14] = new JCheckBox("Lumberjack");
+		chkBox[14].setBounds(252, 352, 105, 27);
+		contentPane.add(chkBox[14]);
+		
+		chkBox[15] = new JCheckBox("Tapper");
+		chkBox[15].setBounds(252, 383, 105, 27);
+		contentPane.add(chkBox[15]);
+		
+		chkBox[16] = new JCheckBox("Botanist");
+		chkBox[16].setBounds(252, 414, 105, 27);
+		contentPane.add(chkBox[16]);
+		
+		chkBox[17] = new JCheckBox("Tracker");
+		chkBox[17].setBounds(252, 445, 105, 27);
+		contentPane.add(chkBox[17]);
+		
+		lblMining = new JLabel("Mining");
+		lblMining.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblMining.setBounds(371, 261, 62, 18);
+		contentPane.add(lblMining);
+		
+		chkBox[18] = new JCheckBox("Miner");
+		chkBox[18].setBounds(371, 290, 105, 27);
+		contentPane.add(chkBox[18]);
+		
+		chkBox[19] = new JCheckBox("Geologist");
+		chkBox[19].setBounds(371, 321, 105, 27);
+		contentPane.add(chkBox[19]);
+		
+		chkBox[20] = new JCheckBox("Blacksmith");
+		chkBox[20].setBounds(371, 352, 105, 27);
+		contentPane.add(chkBox[20]);
+		
+		chkBox[21] = new JCheckBox("Prospector");
+		chkBox[21].setBounds(371, 383, 105, 27);
+		contentPane.add(chkBox[21]);
+		
+		chkBox[22] = new JCheckBox("Excavator");
+		chkBox[22].setBounds(371, 414, 105, 27);
+		contentPane.add(chkBox[22]);
+		
+		chkBox[23] = new JCheckBox("Gemologist");
+		chkBox[23].setBounds(371, 445, 105, 27);
+		contentPane.add(chkBox[23]);
+		
+		lblCombat = new JLabel("Combat");
+		lblCombat.setFont(new Font("Dialog", Font.BOLD, 12));
+		lblCombat.setBounds(490, 261, 62, 18);
+		contentPane.add(lblCombat);
+		
+		chkBox[24] = new JCheckBox("Fighter");
+		chkBox[24].setBounds(490, 290, 105, 27);
+		contentPane.add(chkBox[24]);
+		
+		chkBox[25] = new JCheckBox("Scout");
+		chkBox[25].setBounds(490, 321, 105, 27);
+		contentPane.add(chkBox[25]);
+		
+		chkBox[26] = new JCheckBox("Brute");
+		chkBox[26].setBounds(490, 352, 105, 27);
+		contentPane.add(chkBox[26]);
+		
+		chkBox[27] = new JCheckBox("Defender");
+		chkBox[27].setBounds(490, 383, 105, 27);
+		contentPane.add(chkBox[27]);
+		
+		chkBox[28] = new JCheckBox("Acrobat");
+		chkBox[28].setBounds(490, 414, 105, 27);
+		contentPane.add(chkBox[28]);
+		
+		chkBox[29] = new JCheckBox("Desperado");
+		chkBox[29].setBounds(490, 445, 105, 27);
+		contentPane.add(chkBox[29]);
 	}
 }
